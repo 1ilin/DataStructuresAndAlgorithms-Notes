@@ -389,7 +389,7 @@ void BFSTraVErse(Graph G, Status (*Visit)(int v) )
 	for ( v=0; v<G.vexnum; ++v )
 		if ( !visited[v])  // v 尚未访问
 		{
-			visited[v] = TRUE; Visit(v); // 访问u ？下面也是访问u
+			visited[v] = TRUE; Visit(v); // 访问v
 			EnQueue(Q, v); // v入队列
 			while (!QueueEmpty(Q))
 			{
@@ -415,7 +415,7 @@ void BFSTraVErse(Graph G, Status (*Visit)(int v) )
 	for ( v=0; v<G.vexnum; ++v )
 		if ( !visited[v]) // v 尚未访问
 		{
-			visited[v] = TRUE; Visit(v); // 访问u
+			visited[v] = TRUE; Visit(v); // 访问v
 			EnQueue(Q, v); // v入队列
 			while (!QueueEmpty(Q))
 			{
@@ -910,7 +910,7 @@ Dijkstra算法的空间复杂性主要体现在两个辅助数组，空间复杂
 void ShortestPath_FLOYD(MGraph G,PathMatrix P[], DistancMatrix &D) {
 	int v,w,u,i;
 	for(v=0; v<G.vexnum; ++v)
-		for(w=0; w<G.vexnum;++w) {
+		for(w=0; w<G.vexnum;++w) { // 初始化
 			D[v][w] = G.arcs[v][w];
 			for (u=0; u<G.vexnum; ++u)
 				P[v][w][u] = FALSE;
@@ -918,19 +918,19 @@ void ShortestPath_FLOYD(MGraph G,PathMatrix P[], DistancMatrix &D) {
 					P[v][w][v] = P[v][w][w] = TRUE;
 					//P是路径矩阵P[x][y][z]的含义是从x到y是否经过z，如果是值为1，否则为0
 		}
-		for (u=0; u<G.vexnum; ++u) //经过的顶点
-			for (v=0; v<G.vexnum; ++v)
-				for (w=0; w<G.vexnum; ++w)
-					if (D[v][u]+D[u][w] < D[v][w]) { // 从v经u到w的一条路径更短
-						D[v][w] = D[v][u]+D[u][w];
-						for (i=0; i<G.vexnum; ++i)
-						P[v][w][i] =(P[v][u][i] || P[u][w][i]);
-					}
+	for (u=0; u<G.vexnum; ++u) //经过的顶点
+		for (v=0; v<G.vexnum; ++v)
+			for (w=0; w<G.vexnum; ++w)
+				if (D[v][u]+D[u][w] < D[v][w]) { // 从v经u到w的一条路径更短
+					D[v][w] = D[v][u]+D[u][w];
+					for (i=0; i<G.vexnum; ++i)
+					P[v][w][i] =(P[v][u][i] || P[u][w][i]);
+				}
 }
 ```
 ### 算法分析
 Floyd算法的时间复杂性主要体现在三重循环， 时间复杂性为O(n<sup>3</sup>) 
-Floyd算法的空间复杂性主要体现在利用了一个 二维数组，空间复杂性为O(n<sup>2</sup>)
+Floyd算法的空间复杂性主要体现在利用了一个二维数组，空间复杂性为O(n<sup>2</sup>)
 
 权值可以是负值，但不能有长度是负值的环路。
 ### 算法功能

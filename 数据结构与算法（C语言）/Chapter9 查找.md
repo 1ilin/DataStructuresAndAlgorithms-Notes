@@ -172,25 +172,21 @@ INtable IX;
 
 ### 算法实现
 ```c
-int SEARCH(SSTable ST, INtable IX, KeyType key)
-{
+int SEARCH(SSTable ST, INtable IX, KeyType key) {
 	int i=0,s,e; //s和e分别记录在查找表中的开始位置和结束位置
-	while ((key > IX.index[i].key)&&(i < IX.block))
+	while ( (key > IX.index[i].key)&&(i < IX.block) )
 		i++; //在索引表中查找,确定块号i
-		if (i < IX.block){
-			s = IX.index[i].addr;//根据块号确定s
-			i==IX.block-1?e=ST.length-1: e=IX.index[i+1].addr-1
-			//确定e
-			while ( key!=ST.elem[s].key&&(s<=e) )
-			//在查找表中从s到e查找
-				s=s+1;
-			if (s<=e)
-				return s;
-		}
+	if (i < IX.block){
+		s = IX.index[i].addr;//根据块号确定s
+		i==IX.block-1? e=ST.length-1: e=IX.index[i+1].addr-1; //确定e
+		while ( key!=ST.elem[s].key&&(s<=e) ) //在查找表中从s到e查找
+			s=s+1;
+		if (s<=e)
+			return s;
+	}
 	return -1
 }
 ```
->感觉有问题，课件上的代码没有缩进理解起来很困难
 
 ### 算法分析
 问题：如果索引表长度为b，每块平均长度为L,平均查找长度是多少？ 
