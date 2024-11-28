@@ -10,7 +10,7 @@
 > 不同软件渲染显示效果不同，但内容及排版一致
 
 # 使用须知
-笔记由[Obsidian](https://obsidian.md/)制作,不遵循严格的markdown语法\
+笔记由[Obsidian](https://obsidian.md/)制作，不遵循严格的markdown语法\
 如用其他软件打开，最好开启【回车换行】以使排版清晰
 
 ## LICENSE
